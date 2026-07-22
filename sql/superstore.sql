@@ -127,16 +127,16 @@ CREATE TABLE orders (
 
 
 -- Insert Data into Customers
---
+
 -- Purpose:
 -- The staging table contains one row for every product sold,
 -- so the same customer appears multiple times.
---
--- Grouping by Customer ID ensures that each customer is
--- stored only once. 
--- for the remaining customer details if duplicate records
--- exist in the source data.
 
+-- The staging table contains one row for every product sold,
+-- so the same customer appears multiple times.
+--
+-- DISTINCT ensures that each customer is stored only once
+-- in the Customers table.
 
 INSERT INTO customers (
 
