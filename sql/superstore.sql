@@ -133,7 +133,7 @@ CREATE TABLE orders (
 -- so the same customer appears multiple times.
 --
 -- Grouping by Customer ID ensures that each customer is
--- stored only once. MAX() is used to return a single value
+-- stored only once. 
 -- for the remaining customer details if duplicate records
 -- exist in the source data.
 
@@ -384,4 +384,43 @@ JOIN products p
 ON o.product_id = p.product_id
 GROUP BY p.category
 ORDER BY total_profit DESC;
+
+
+
+-- ROW_NUMBER()
+SELECT
+    c.customer_name,
+    ROUND(SUM(o.sales), 2) AS total_sales,
+    ROW_NUMBER() OVER (ORDER BY SUM(o.sales) DESC) AS sales_rank
+FROM orders o
+JOIN customers c
+ON o.customer_id = c.customer_id
+GROUP BY c.customer_name;
+
+
+
+   --   Common Table Expression (CTE)
+-- Regional Sales using CTE
+
+WITH RegionalSales AS (
+SELECT
+        region,ROUND(SUM(sales), 2) AS total_sales
+    FROM orders
+    GROUP BY region
+)
+SELECT *
+FROM RegionalSales
+ORDER BY total_sales DESC;
+
+-- CASE WHEN
+-- Categorize Orders by Sales
+SELECT
+    order_id,
+    sales,
+    CASE
+        WHEN sales >= 500 THEN 'High Sales'
+        WHEN sales >= 200 THEN 'Medium Sales'
+        ELSE 'Low Sales'
+    END AS sales_category
+FROM orders;
 
