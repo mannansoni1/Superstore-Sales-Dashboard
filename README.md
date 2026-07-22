@@ -216,6 +216,6 @@ Superstore-Sales-Dashboard
 
 # Author
 
-**Mannan**
+Mannan Soni
 
 Thank you for checking out my project! If you have any suggestions or feedback, feel free to connect with me.
